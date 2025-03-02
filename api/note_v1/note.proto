@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package note_v1;
+
+option go_package = "github.com/Ghaarp/gRPC-basic/api/note_v1;note_v1";
+
+service NoteV1 {
+    rpc Create(CreateRequest) returns (CreateResponse);
+    rpc Get(GetRequest) returns (GetResponse);
+    rpc List(ListRequest) returns (ListResponse);
+    rpc Update(UpdateRequest) return (google.protobuf.Empty);
+    rpc Delete(DeleteRequest) return (google.protobuf.Empty);
+}
+
+message NoteInfo {
+    string title = 1;
+    string content = 2;
+    string author = 3;
+    bool is_public = 4;
+}
+
+message Note {
+    int64 id = 1;
+    NoteInfo info = 2;
+    google.protobuf.Timestamp = created_at = 3;
+}
+
+message UpdateNoteInfo {
+    google.protobuf.StringValue title = 1;
+    google.protobuf.StringValue content = 2;
+    google.protobuf.StringValue author = 3;
+    google.protobuf.BoolValue is_public = 4;
+}
+
+message CreateRequest {
+    NoteInfo info = 1;
+}
+
+message CreateResponse {
+    NoteInfo id = 1;
+}
+
+message GetRequest {
+    int64 id = 1;
+}
+
+message GetResponse {
+    Note note = 1;
+}
+
+message ListRequest {
+
+}
+
+message ListResponse {
+    repeated Note note = 1;
+}
+
+rpc UpdateRequest {
+    int64 id = 1;
+    UpdateNoteInfo noteInfo = 2;
+}
+
+rpc DeleteRequest {
+    int64 id = 1;
+}
+
+
