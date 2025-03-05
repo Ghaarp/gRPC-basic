@@ -52,6 +52,8 @@ func (srv *server) Create(context context.Context, request *generated.CreateRequ
 	return &response, nil
 }
 
+//func (srv *server) Get(cont context.Context, request *generated.GetRequest) (*generated.GetResponse, error) {
+
 func main() {
 
 	noteList = NoteListSynced{
