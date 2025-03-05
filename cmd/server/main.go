@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"math/rand"
 	"net"
@@ -52,7 +53,21 @@ func (srv *server) Create(context context.Context, request *generated.CreateRequ
 	return &response, nil
 }
 
-//func (srv *server) Get(cont context.Context, request *generated.GetRequest) (*generated.GetResponse, error) {
+func (srv *server) Get(cont context.Context, request *generated.GetRequest) (*generated.GetResponse, error) {
+	id := request.Id
+
+	noteList.mut.RLock()
+	defer noteList.mut.RUnlock()
+
+	note, ok := noteList.list[id]
+
+	if !ok {
+		return &generated.GetResponse{}, fmt.Errorf("note not found")
+	}
+
+	return &generated.GetResponse{Note: note}, nil
+
+}
 
 func main() {
 
